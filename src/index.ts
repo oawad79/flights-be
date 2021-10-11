@@ -9,7 +9,7 @@ import morganBody from 'morgan-body';
 import bodyParser from 'body-parser';
 
 //application logger
-import Logger from './loaders/logger';
+import {Logger} from './loaders';
 
 import {createExpressServer, getMetadataArgsStorage, useContainer} from "routing-controllers";
 import PassengersController from "./controllers/passengers.controller";
@@ -64,6 +64,8 @@ app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(spec))
 //enable request/response logging
 app.use(bodyParser.json());
 morganBody(app);
+
+Container.set('logger', Logger);
 
 app.listen(config.port, () => {
     Logger.info(`

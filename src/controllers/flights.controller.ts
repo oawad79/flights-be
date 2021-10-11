@@ -1,6 +1,5 @@
 import {Inject, Service} from "typedi";
 import FlightsService from '../services/flights.services';
-import Logger from '../loaders/logger';
 import {Get, JsonController, Req, Res} from "routing-controllers";
 
 @Service()
@@ -8,12 +7,13 @@ import {Get, JsonController, Req, Res} from "routing-controllers";
 export default class FlightsController {
 
     constructor(
-        @Inject('flightsService') private flightsService: FlightsService) {
+        @Inject('flightsService') private flightsService: FlightsService,
+        @Inject('logger') private logger) {
     }
 
     @Get('/flights')
     getFlights = async () => {
-        Logger.debug(`Entering getFlights...`);
+        this.logger.debug(`Entering getFlights...`);
         return await this.flightsService.getFlights();
     }
 

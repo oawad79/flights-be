@@ -1,10 +1,15 @@
-import {Service} from 'typedi';
+import {Inject, Service} from 'typedi';
 import {Flight} from "../types/flights.types";
 
 @Service('flightsService')
 export default class FlightsService {
 
+    constructor(@Inject('logger') private logger)
+    {}
+
     async getFlights(): Promise<Flight[]> {
+        this.logger.info('Entering Service.getFlights');
+
         return [
             {
                 id: "1",
